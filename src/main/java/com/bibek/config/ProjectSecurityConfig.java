@@ -16,15 +16,11 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
-		
 		  http .authorizeRequests() .antMatchers("/myAccount").authenticated()
 		  .antMatchers("/myBalance").authenticated()
 		  .antMatchers("/myCards").authenticated()
 		  .antMatchers("/myLoans").authenticated() .antMatchers("/notices").permitAll()
 		  .antMatchers("/contact").permitAll() .and() .formLogin() .and() .httpBasic();
-		  
-		 
 		
 		/*
 		 * The default behavior of spring security is to authenticate the request we can
