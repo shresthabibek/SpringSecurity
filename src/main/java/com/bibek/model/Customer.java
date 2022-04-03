@@ -8,6 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Customer {
 
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
@@ -40,7 +41,10 @@ public class Customer {
 		this.role = role;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", email=" + email + ", pwd=" + pwd + ", role=" + role + "]";
+	}
 	
 
 }

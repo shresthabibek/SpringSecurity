@@ -18,6 +18,7 @@ public class SecurityCustomer implements UserDetails{
 		this.customer = customer;
 	}
 	
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
@@ -51,10 +52,17 @@ public class SecurityCustomer implements UserDetails{
 		return true;
 	}
 
-	@Override
+	@Override 
 	public boolean isEnabled() {
 		return true;
 	}
+
+
+	@Override
+	public String toString() {
+		return "SecurityCustomer [customer=" + customer + "]";
+	}
+	
 	
 
 }

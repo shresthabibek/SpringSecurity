@@ -4,12 +4,14 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -20,12 +22,10 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		  http .authorizeRequests() .antMatchers("/myAccount").authenticated()
-		  .antMatchers("/myBalance").authenticated()
-		  .antMatchers("/myCards").authenticated()
-		  .antMatchers("/myLoans").authenticated() .antMatchers("/notices").permitAll()
-		  .antMatchers("/contact").permitAll() .and() .formLogin() .and() .httpBasic();
-		
+		http.authorizeRequests().antMatchers("/myAccount").authenticated().antMatchers("/myBalance").authenticated()
+				.antMatchers("/myCards").authenticated().antMatchers("/myLoans").authenticated().antMatchers("/notices")
+				.permitAll().antMatchers("/contact").permitAll().and().formLogin().and().httpBasic();
+
 		/*
 		 * The default behavior of spring security is to authenticate the request we can
 		 * customize the request. we can permit some endpoints and authenticate some
@@ -42,7 +42,7 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
 		 * .permitAll().and().formLogin().and().httpBasic();
 		 */
 	}
-	
+
 	/*
 	 * @Override protected void configure(AuthenticationManagerBuilder auth) throws
 	 * Exception{
@@ -50,9 +50,9 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
 	 * ("admin").and() .withUser("user").password("12345").authorities("read").and()
 	 * .passwordEncoder(NoOpPasswordEncoder.getInstance()); }
 	 */
-	
+
 	// in memory authentication
-	
+
 	/*
 	 * @Override protected void configure(AuthenticationManagerBuilder auth) throws
 	 * Exception{ InMemoryUserDetailsManager userDetailsService = new
@@ -64,15 +64,23 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
 	 * auth.userDetailsService(userDetailsService);
 	 * 
 	 * }
-	 */ 
+	 */
+
+	/*
+	 * @Bean public UserDetailsService userDetailsService(DataSource dataSource) {
+	 * return new JdbcUserDetailsManager(dataSource); }
+	 */
+
+	/*
+	 * @Bean public PasswordEncoder passwordEncoder() { return
+	 * NoOpPasswordEncoder.getInstance(); }
+	 */
+
 	
-	@Bean
-	public UserDetailsService userDetailsService(DataSource dataSource) {
-		return new JdbcUserDetailsManager(dataSource);
-	}
-	 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
-	}
+	 @Bean
+	 public PasswordEncoder passwordEncoder() { 
+	 	 return new BCryptPasswordEncoder(); 
+	 }
+	
+
 }
