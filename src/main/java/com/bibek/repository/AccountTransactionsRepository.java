@@ -6,11 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.bibek.model.AccountTransactions;
-import com.bibek.model.Cards;
 
 @Repository
-public interface CardsRepository extends CrudRepository<AccountTransactions, Long>{
+public interface AccountTransactionsRepository extends CrudRepository<AccountTransactions, Long>{
 
-	List<Cards> findByCustomerId(int customerId);
-	
-}
+	List<AccountTransactions> findByCustomerIdOrderByTransactionDtDesc(int customerId);
+}	
