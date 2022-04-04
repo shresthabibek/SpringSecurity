@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "contact_messages")
 public class Contact {
-
+	
 	@Id
 	@Column(name = "contact_id")
 	private String contactId;
@@ -75,6 +75,6 @@ public class Contact {
 	public void setCreateDt(Date createDt) {
 		this.createDt = createDt;
 	}
-	
+
 	
 }
