@@ -1,2 +1,2 @@
-# SpringSecurity basics
+# SpringSecurity
 
